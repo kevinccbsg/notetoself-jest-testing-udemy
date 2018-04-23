@@ -1,0 +1,13 @@
+body {
+  text-align: center;
+  padding: 5%;
+}
+
+.Note {
+  border: 1px solid grey;
+  border-radius: 5px;
+  font-style: italic;
+  padding: 8px;
+  margin: 30px;
+  text-align: left;
+}

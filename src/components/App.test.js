@@ -25,4 +25,55 @@ describe('App', () => {
       expect(app.find('FormControl').exists()).toEqual(true);
     });
   });
+
+  describe('when create a note', () => {
+    let testNote = 'test note';
+    beforeEach(() => {
+      app.find('FormControl').simulate('change', {
+        target: {
+          value: testNote,
+        },
+      });
+    });
+    it('State has changed', () => {
+      expect(app.state('text')).toEqual(testNote);
+    });
+
+    describe('and submitting the new note', () => {
+      beforeEach(() => {
+        app.find('Button').at(0).simulate('click');
+      });
+
+      afterEach(() => {
+        app.find('Button').at(1).simulate('click');
+      })
+
+      it('should has the new note', () => {
+        expect(app.find('Note')).toHaveLength(1);
+      });
+
+      describe('and remounting the component', () => {
+        let app2;
+
+        beforeEach(() => {
+          app2 = mount(<App />);
+        });
+
+        it('reads the store note cookies', () => {
+          expect(app2.state().notes).toHaveLength(1);
+        });
+      });
+    });
+
+    describe('and clicking the clear button', () => {
+      beforeEach(() => {
+        app.find('Button').at(1).simulate('click');
+      });
+
+      it('should has the new note', () => {
+        expect(app.state('notes')).toEqual([]);
+      });
+    });
+
+  });
 });

@@ -5,6 +5,7 @@ const iPhone = devices['iPhone 6'];
 const props = {
   titleAPP: 'Note to self', 
   newNote: 'New note text',
+  cookieName: 'NOTES',
 };
 
 const { URL, HEADLESS } = process.env;
@@ -38,7 +39,7 @@ describe('UI test for create note functionality', () => {
     expect(formCounts).toEqual(1);
   });
 
-  it(`Complete form and create new note: '${props.newNote}'`, async () => {
+  it(`Complete form and create new note: '${props.newNote}' and save it into cookies`, async () => {
     const button = await page.$('form button');
     const input = await page.$('form input');
     await input.tap();
@@ -46,6 +47,11 @@ describe('UI test for create note functionality', () => {
     await button.tap();
     const text = await page.evaluate(() => document.body.textContent);
     expect(text).toContain(props.newNote);
+    const cookies = await page.cookies();
+    const isCookies = !!cookies.length;
+    expect(isCookies).toBe(true);
+    const { name } = cookies[0];
+    expect(name).toEqual(props.cookieName);
   });
 
   afterAll(() => {

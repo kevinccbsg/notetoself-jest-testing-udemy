@@ -33,6 +33,21 @@ describe('UI test for create note functionality', () => {
     expect(text).toContain(props.titleAPP);
   });
 
+  it('Render one form', async () => {
+    const formCounts = await page.$$eval('form', form => form.length);
+    expect(formCounts).toEqual(1);
+  });
+
+  it(`Complete form and create new note: '${props.newNote}'`, async () => {
+    const button = await page.$('form button');
+    const input = await page.$('form input');
+    await input.tap();
+    await page.keyboard.type(props.newNote, { delay: 100 });
+    await button.tap();
+    const text = await page.evaluate(() => document.body.textContent);
+    expect(text).toContain(props.newNote);
+  });
+
   afterAll(() => {
     browser.close();
   });

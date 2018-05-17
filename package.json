@@ -17,10 +17,13 @@
     "ui-test": "URL=http://localhost:3000 jest"
   },
   "jest": {
-    "testMatch": ["**/?(*.)(ui).js?(x)"]
+    "testMatch": [
+      "**/?(*.)(ui).js?(x)"
+    ]
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
+    "easy-pdf-merge": "^0.1.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^22.4.3",

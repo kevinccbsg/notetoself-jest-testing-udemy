@@ -12,12 +12,11 @@ const { URL, HEADLESS } = process.env;
 
 const browserConfig = {
   launch: {
-    headless: (!!HEADLESS),
+    headless: (HEADLESS === 'false') ? false : true,
   },
   urlGoTo: URL,
   gotoConfig: { waitUntil: 'load' },
 };
-
 
 describe('UI test for create note functionality', () => {
   let browser;
@@ -54,7 +53,10 @@ describe('UI test for create note functionality', () => {
     expect(name).toEqual(props.cookieName);
   });
 
-  afterAll(() => {
+  afterAll(async () => {
+    if (browserConfig.launch.headless === false) {
+      await page.waitFor(2000);
+    }
     browser.close();
   });
 });

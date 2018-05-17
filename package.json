@@ -14,7 +14,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "ui-test": "URL=http://localhost:3000 HEADLESS=true jest"
+    "ui-test": "URL=http://localhost:3000 jest"
   },
   "jest": {
     "testMatch": ["**/?(*.)(ui).js?(x)"]

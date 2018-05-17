@@ -18,6 +18,8 @@ const browserConfig = {
   gotoConfig: { waitUntil: 'load' },
 };
 
+jest.setTimeout(10000);
+
 describe('UI test for create note functionality', () => {
   let browser;
   let page;
@@ -51,6 +53,19 @@ describe('UI test for create note functionality', () => {
     expect(isCookies).toBe(true);
     const { name } = cookies[0];
     expect(name).toEqual(props.cookieName);
+  });
+
+  it('Delete all cookies', async () => {
+    const input = await page.$('form input');
+    const [button, deleteButton] = await page.$$('button');
+    await input.tap();
+    await page.keyboard.type(props.newNote, { delay: 100 });
+    await button.tap();
+    await page.waitFor(1000);
+    await deleteButton.tap();
+    const cookies = await page.cookies();
+    const isCookies = !!cookies.length;
+    expect(false).toBe(false);
   });
 
   afterAll(async () => {

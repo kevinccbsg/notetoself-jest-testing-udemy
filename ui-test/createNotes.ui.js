@@ -13,6 +13,7 @@ const { URL, HEADLESS } = process.env;
 const browserConfig = {
   launch: {
     headless: (HEADLESS === 'false') ? false : true,
+    devtools: (HEADLESS === 'false') ? true : false,
   },
   urlGoTo: URL,
   gotoConfig: { waitUntil: 'load' },
